@@ -9,13 +9,15 @@
 	    jQuery(function() {
 	    	// Document is ready
 			$('#doit').on('click', function() {
-				const urls = $('#left').val().split(/\s+/);
+				const urls = $('#left').val().trim().split(/\s+/);
 				shorturls1 = '';
 				shorturls2 = '';
 				shorturls3 = '';
 				shorturls4 = '';
 				shorturls5 = '';
 				shorturls6 = '';
+				shorturls7 = '';
+				shorturls8 = '';
 				
 				urls.forEach( url => {
 					let shorturl = url.replace(/^(https:\/\/)/,"").replace(/^(http:\/\/)/,"").replace(/^(www\.)/,"");
@@ -25,26 +27,52 @@
 					shorturl4 = shorturl;
 					shorturl5 = shorturl;
 					shorturl6 = shorturl;
+					shorturl7 = shorturl;
+					shorturl8 = shorturl;
 					
 					if (shorturl.length > 30) {
 						shorturl2 = shorturl.substring(0,29) + '…';
 						shorturl3 = '…' + shorturl.slice(-29);
 						shorturl4 = shorturl.substring(0,14) + '…' + shorturl.slice(-14);
+						shorturl5 = shorturl2;
+						shorturl6 = shorturl4;
+						shorturl8 = shorturl4;
 						if(shorturl.includes('/')) {
-							shorturl5 = shorturl.split('/').pop().substring(0,29) + '…';
-							shorturl6 = shorturl.split('/').pop().substring(0,14) + '…' + shorturl.split('/').pop().slice(-14);
-						} else { shorturl5 = shorurl2; }
+							let supershort = shorturl.split('/').pop()
+							
+							shorturl5 = supershort;
+							shorturl6 = supershort;
+							shorturl7 = supershort;
+							
+							if (supershort.length > 30) {
+								shorturl5 = supershort.substring(0,29) + '…';
+								shorturl6 = supershort.substring(0,14) + '…' + shorturl.split('/').pop().slice(-14);
+							}
+							
+							let afterlast = shorturl.substring(shorturl.indexOf('/') + 1);
+							shorturl8 = afterlast;
+							
+							if (afterlast.length > 30) {
+								shorturl8 = afterlast.substring(0,14) + '…' + afterlast.slice(-14);
+							}
+						}
 					}
+					// keep URL
 					shorturls1 += '<a href="' + url + '">' + shorturl  + '</a>\n'
 					shorturls2 += '<a href="' + url + '">' + shorturl2 + '</a>\n'
 					shorturls3 += '<a href="' + url + '">' + shorturl3 + '</a>\n'
 					shorturls4 += '<a href="' + url + '">' + shorturl4 + '</a>\n'
 					
+					// after last '/'
 					shorturls5 += '<a href="' + url + '">' + shorturl5 + '</a>\n'
 					shorturls6 += '<a href="' + url + '">' + shorturl6 + '</a>\n'
+					shorturls7 += '<a href="' + url + '">' + shorturl7 + '</a>\n'
+					
+					// after first '/'
+					shorturls8 += '<a href="' + url + '">' + shorturl8 + '</a>\n'
 				});
-				$('#right').val(shorturls1 + '\n\n' + shorturls2 + '\n\n' + shorturls3 + '\n\n' + shorturls4 + '\n\n' + shorturls5 + '\n\n' + shorturls6);
-				$('#preview').html(shorturls1 + '<br><br>' + shorturls2 + '<br><br>' + shorturls3 + '<br><br>' + shorturls4 + '<br><br>' + shorturls5 + '<br><br>' + shorturls6);
+				$('#right').val(shorturls8 + '\n' + shorturls7 + '\n' + shorturls6 + '\n' + shorturls5 + '\n' + shorturls4 + '\n' + shorturls3 + '\n' + shorturls2 + '\n' + shorturls1);
+				$('#preview').html(shorturls8.replaceAll('\n','<br>') + '<br>' + shorturls7.replaceAll('\n','<br>') + '<br>' + shorturls6.replaceAll('\n','<br>') + '<br>' + shorturls5.replaceAll('\n','<br>') + '<br>' + shorturls4.replaceAll('\n','<br>') + '<br>' + shorturls3.replaceAll('\n','<br>') + '<br>' + shorturls2.replaceAll('\n','<br>') + '<br>' + shorturls1.replaceAll('\n','<br>'));
 			});
 			
 	    });
@@ -85,6 +113,7 @@
 			width: 19%;
 			vertical-align: top;
 			text-align: left;
+			overflow: hidden;
 		}
 		div {
 			text-align: center;
@@ -113,4 +142,4 @@
 		<div id='preview'>The output will be rendered here</div>
 		<p id='subtle'>For when a forum doesn't shorten URL <span title="does it upset you 'link' is used twice?">Links</a> for you.</p><p id='sehrsubtle'><a target='_blank' href='https://github.com/qubodup/short-ahref'>Code on GitHub</a>. Made for <a target='_blank' href='https://freesound.org/forum/'>Freesound Forums</a> (as of June 2024). Icon made with <a target='_blank' href="https://www.xiconeditor.com/">X-Icon Editor</a></p>
 	</body>
-</html>	
+</html>
