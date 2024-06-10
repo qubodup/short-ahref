@@ -20,7 +20,7 @@
 				shorturls8 = '';
 				
 				urls.forEach( url => {
-					let shorturl = url.replace(/^(https:\/\/)/,"").replace(/^(http:\/\/)/,"").replace(/^(www\.)/,"");
+					let shorturl = url.replace(/^(https:\/\/)/,"").replace(/^(http:\/\/)/,"").replace(/^(www\.)/,"").replace(/\/\s*$/, "");;
 					
 					shorturl2 = shorturl;
 					shorturl3 = shorturl;
